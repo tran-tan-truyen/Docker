@@ -10,7 +10,7 @@ for file in /data/*.ipa; do
   find -name "* *" -type d | rename 's/ /_/g'    # do the directories first
   find -name "* *" -type f | rename 's/ /_/g'
 
-  JSONFILE=$(find /home -name *.json 	)
+  JSONFILE=$(find /home -name "*.json")
 
   buffer+="\nJSON files:\n-----------"
   for f in ${JSONFILE[@]}
@@ -70,8 +70,9 @@ for file in /data/*.ipa; do
     buffer+=$(cat $p | sed -n '/<key>ExpirationDate<\/key>/{n;p;}' | sed  "s/.*>\(.*\)T.*/ - \1/g" )
     buffer+=$(cat $p | sed -n '/<key>AppIDName<\/key>/{n;p;}' | sed  "s/.*>\(.*\)<.*/ - \1/g" )
     buffer+=$(cat $p | sed -n '/<key>application-identifier<\/key>/{n;p;}' | sed  "s/.*>\(.*\)<.*/ - \1/g" )
-    buffer+=$"\n***********************************************************\n"
   done
+
+  buffer+=$"\n***********************************************************\n"
   rm -rf *
 done
 
